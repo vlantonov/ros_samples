@@ -1,0 +1,41 @@
+# Run ROS package in Docker
+
+## Build package
+
+```bash
+$ docker build -t docker_ros_test .
+```
+
+## Start server
+
+Original command
+`rosrun client_server_actionlib_python fibonacci_server.py`
+is executed using prepared as entrypoint bash script:
+
+```bash
+$ docker run -it --name docker_ros_test --rm docker_ros_test ./run_server.sh
+```
+
+## Start client
+
+The Docker container with surver must be running.
+
+Original command
+`rosrun client_server_actionlib_python fibonacci_client.py`
+is executed using prepared as entrypoint bash script:
+
+```bash
+docker exec -it docker_ros_test ./run_client.sh
+```
+
+## Stop server
+
+```bash
+docker stop docker_ros_test
+```
+
+## Remove Docker image
+
+```bash
+docker image rm docker_ros_test
+```
